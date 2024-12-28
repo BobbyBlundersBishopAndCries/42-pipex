@@ -1,6 +1,10 @@
 # 42-pipex
 Simulating a pipe using system calls and language C
 
+The playlist of system calls
+
+https://www.youtube.com/watch?v=cex9XrZCU14&list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY&ab_channel=CodeVault
+
 How actually fork works 
 ![image](https://github.com/user-attachments/assets/32d2e5e0-2115-4b86-a47d-540294965189)
 
