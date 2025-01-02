@@ -6,17 +6,20 @@
 /*   By: mohabid <mohabid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 04:00:18 by mohabid           #+#    #+#             */
-/*   Updated: 2025/01/02 04:05:42 by mohabid          ###   ########.fr       */
+/*   Updated: 2025/01/02 18:19:50 by mohabid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
+# define WRITE_END 1
+# define READ_END 0
+
 # include "libft/libft.h"
-char	**return_path(char *env[]);
-char	*create_full_path(char *path, char *command);
-char	*path_found(char *command, char *env[]);
-void	free_array(char **array);
+# include <errno.h>
+# include <string.h>
+# include <sys/wait.h>
+
 void	execute_command(char *command, char *env[]);
 #endif
