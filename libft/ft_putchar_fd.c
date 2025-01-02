@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohabid <mohabid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 04:00:18 by mohabid           #+#    #+#             */
-/*   Updated: 2025/01/02 04:04:11 by mohabid          ###   ########.fr       */
+/*   Created: 2024/10/24 12:25:29 by mohabid           #+#    #+#             */
+/*   Updated: 2025/01/01 13:42:25 by mohabid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include "../libft.h"
-char	**return_path(char *env[]);
-char	*create_full_path(char *path, char *command);
-char	*path_found(char *command, char *env[]);
-void	free_array(char **array);
-void	execute_command(char *command, char *env[]);
-#endif
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}

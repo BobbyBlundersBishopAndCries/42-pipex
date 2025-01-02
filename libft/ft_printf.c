@@ -1,22 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohabid <mohabid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 04:00:18 by mohabid           #+#    #+#             */
-/*   Updated: 2025/01/02 04:04:11 by mohabid          ###   ########.fr       */
+/*   Created: 2024/11/11 18:09:57 by mohabid           #+#    #+#             */
+/*   Updated: 2024/11/15 17:53:54 by mohabid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "ft_printf.h"
 
-# include "../libft.h"
-char	**return_path(char *env[]);
-char	*create_full_path(char *path, char *command);
-char	*path_found(char *command, char *env[]);
-void	free_array(char **array);
-void	execute_command(char *command, char *env[]);
-#endif
+int	ft_printf(const char *s, ...)
+{
+	va_list	ap;
+	int		count;
+
+	count = 0;
+	va_start(ap, s);
+	if (!s || write(1, 0, 0) == -1)
+		return (-1);
+	while (*s)
+	{
+		if (*s == '%')
+		{
+			s++;
+			if (*s != '\0')
+				count += ft_print_format(*s++, ap);
+			else
+				break ;
+		}
+		else
+			count += ft_putchar(*s++);
+	}
+	va_end(ap);
+	return (count);
+}
