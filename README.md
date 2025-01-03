@@ -24,5 +24,8 @@ the output :
 
 ![image](https://github.com/user-attachments/assets/8e1d7780-54e9-41b9-b72b-8e3ac7fe20ae)
 
+# bonus mini guide
+
+![image](https://github.com/user-attachments/assets/169f1bd4-c8f2-4754-9141-920acc3ff7c0)
 
 
