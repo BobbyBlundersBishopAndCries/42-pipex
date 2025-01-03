@@ -22,6 +22,7 @@ the output :
 
 # Why is the pipe system call is the sexiest (we communicate between 2 different processes like hell ye)
 
-![image](https://github.com/user-attachments/assets/17e16e9a-a5a9-44db-90e6-b5c8a85f1b6c)
+![image](https://github.com/user-attachments/assets/8e1d7780-54e9-41b9-b72b-8e3ac7fe20ae)
+
 
 
