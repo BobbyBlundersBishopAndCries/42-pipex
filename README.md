@@ -20,4 +20,8 @@ the output :
 
 ![image](https://github.com/user-attachments/assets/ad1a61e9-0f6b-423f-8683-32805d48d9d9)
 
+# Why is the pipe system call is the sexiest (we communicate between 2 different processes like hell ye)
+
+![image](https://github.com/user-attachments/assets/17e16e9a-a5a9-44db-90e6-b5c8a85f1b6c)
+
 
