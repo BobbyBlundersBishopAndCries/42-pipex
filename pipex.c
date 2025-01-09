@@ -6,7 +6,7 @@
 /*   By: mohabid <mohabid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:44:13 by mohabid           #+#    #+#             */
-/*   Updated: 2025/01/02 19:08:32 by mohabid          ###   ########.fr       */
+/*   Updated: 2025/01/03 06:21:10 by mohabid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	pid_child(char *av[], int biba[2], char *env[])
 {
 	int	fd;
 
+	close(biba[READ_END]);
 	fd = open(av[1], O_RDONLY, 0777);
 	if (fd < 0)
 		ft_printf("failed to open file for reading : %s\n", strerror(errno));
 	dup2(biba[WRITE_END], STDOUT_FILENO);
 	dup2(fd, STDIN_FILENO);
 	close(biba[WRITE_END]);
-	close(biba[READ_END]);
 	close(fd);
 	execute_command(av[2], env);
 }
@@ -31,12 +31,12 @@ void	pid_parent(char *av[], int biba[2], char *env[])
 {
 	int	fd;
 
-	fd = open(av[4], O_WRONLY | O_CREAT, 0777);
+	close(biba[WRITE_END]);
+	fd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 		ft_printf("failed to open file for writing : %s\n", strerror(errno));
 	dup2(biba[READ_END], STDIN_FILENO);
 	dup2(fd, STDOUT_FILENO);
-	close(biba[WRITE_END]);
 	close(biba[READ_END]);
 	close(fd);
 	execute_command(av[3], env);

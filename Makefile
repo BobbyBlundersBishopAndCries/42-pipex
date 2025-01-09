@@ -1,10 +1,9 @@
-
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 SRCS = biba_utils.c pipex.c
-BONUS = 
+BONUS = bonus_utils.c bonus.c biba_utils.c
 OBJS = $(SRCS:.c=.o)
 B_OBJS = $(BONUS:.c=.o)
 NAME = pipex
@@ -17,19 +16,20 @@ $(LIBFT):
 
 $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
-bonus: $(BONUS)
 
-$(BONUS_NAME): $(B_OBJS)
+$(BONUS_NAME): $(LIBFT) $(B_OBJS)
 	$(CC) $(CFLAGS) -o $(BONUS_NAME) $(B_OBJS) $(LIBFT)
+
+bonus: $(BONUS_NAME)
 
 clean:
 	make -C $(LIBFT_DIR) clean
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(B_OBJS)
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
-	rm -f $(NAME)
+	rm -f $(NAME) $(BONUS_NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

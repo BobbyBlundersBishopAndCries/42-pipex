@@ -1,0 +1,15 @@
+# Sort and count lines
+< input.txt sort | wc -l > output.txt
+
+# Grep for a pattern and save the result
+< file.txt grep "pattern" | sort > sorted_results.txt
+
+# Convert a text file to uppercase and save
+< input.txt tr '[:lower:]' '[:upper:]' | sort > output.txt
+
+# Filter and count unique lines
+< data.txt uniq | sort | wc -l > count.txt
+
+# Extract and format log entries
+< access.log grep "ERROR" | cut -d' ' -f4- > error_entries.txt
+
