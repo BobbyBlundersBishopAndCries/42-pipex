@@ -6,7 +6,7 @@
 /*   By: mohabid <mohabid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 13:29:30 by mohabid           #+#    #+#             */
-/*   Updated: 2025/01/09 15:19:04 by mohabid          ###   ########.fr       */
+/*   Updated: 2025/01/11 06:27:28 by mohabid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,24 @@ static char	**return_path(char *env[])
 	int		i;
 	char	**path;
 
+	if (env == NULL || (*env) == NULL)
+		return (NULL);
 	i = 0;
-	while (env[i] != NULL && ft_strnstr(env[i], "PATH", 4) == 0)
+	while (env[i] != NULL)
+	{
+		if (ft_strnstr(env[i], "PATH=", 5) == env[i])
+		{
+			path = ft_split(env[i] + 5, ':');
+			if (path == NULL)
+			{
+				perror("Failed to split PATH");
+				return (NULL);
+			}
+			return (path);
+		}
 		i++;
-	path = ft_split(env[i] + 5, ':');
-	return (path);
+	}
+	return (NULL);
 }
 
 static char	*create_full_path(char *path, char *command)
@@ -64,7 +77,7 @@ static char	*path_found(char *command, char *env[])
 	while (path[i] != NULL)
 	{
 		full_path = create_full_path(path[i], command);
-		if (access(full_path, F_OK) == 0 && access(full_path, X_OK) == 0)
+		if (access(full_path, F_OK) == 0)
 		{
 			free_array(path);
 			return (full_path);
@@ -81,15 +94,18 @@ void	execute_command(char *command, char *env[])
 	char	*p;
 	char	**vector;
 
-	if (!command)
+	if (!command || !env || !(*env))
 		return ;
 	vector = ft_split(command, ' ');
 	if (!vector)
 		return ;
-	p = path_found(vector[0], env);
+	if (command[0] == '/')
+		p = ft_strdup(vector[0]);
+	else
+		p = path_found(vector[0], env);
 	if (p == NULL)
 	{
-		perror("command not found");
+		perror("command not found ");
 		free_array(vector);
 		return ;
 	}

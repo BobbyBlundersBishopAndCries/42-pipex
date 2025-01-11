@@ -6,7 +6,7 @@
 /*   By: mohabid <mohabid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:44:13 by mohabid           #+#    #+#             */
-/*   Updated: 2025/01/03 06:21:10 by mohabid          ###   ########.fr       */
+/*   Updated: 2025/01/11 06:21:40 by mohabid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	pid_child(char *av[], int biba[2], char *env[])
 	execute_command(av[2], env);
 }
 
-void	pid_parent(char *av[], int biba[2], char *env[])
+void	pid_second_child(char *av[], int biba[2], char *env[])
 {
 	int	fd;
 
@@ -45,26 +45,28 @@ void	pid_parent(char *av[], int biba[2], char *env[])
 int	main(int ac, char *av[], char *env[])
 {
 	int		pipe_fd[2];
-	pid_t	id;
+	pid_t	id[2];
 
 	if (ac == 5)
 	{
+		if (!env || !(*env))
+			error();
 		if (pipe(pipe_fd) == -1)
-		{
-			perror("pipe creation error");
-			exit(EXIT_FAILURE);
-		}
-		id = fork();
-		if (id == -1)
-		{
-			perror("forking process error");
-			exit(EXIT_FAILURE);
-		}
-		if (id == 0)
+			error();
+		id[0] = fork();
+		if (id[0] == -1)
+			error();
+		if (id[0] == 0)
 			pid_child(av, pipe_fd, env);
-		waitpid(id, NULL, 0);
-		pid_parent(av, pipe_fd, env);
+		id[1] = fork();
+		if (id[1] == -1)
+			error();
+		if (id[1] == 0)
+			pid_second_child(av, pipe_fd, env);
+		close(pipe_fd[READ_END]);
+		close(pipe_fd[WRITE_END]);
+		waitpid(id[0], NULL, 0);
+		waitpid(id[1], NULL, 0);
 	}
-	else
-		ft_printf("ERROR BAD NUMBER OF ARGUMENTS");
+	return (0);
 }
